@@ -6,7 +6,6 @@ export default function CraigGrammerPortfolio() {
   const [editMode, setEditMode] = useState(false);
   const [cart, setCart] = useState([]);
   const [showCartPanel, setShowCartPanel] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const [siteData, setSiteData] = useState(() => {
     const saved = localStorage.getItem('craigGrammerData');
@@ -128,7 +127,7 @@ export default function CraigGrammerPortfolio() {
   const PaintingCard = ({ painting, index }) => {
     const idx = siteData.paintings.findIndex((p) => p.id === painting.id);
     return (
-      <div style={{ animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both` }}>
+      <div style={{ marginBottom: '1rem' }}>
         <div style={{ marginBottom: '1rem', overflow: 'hidden', borderRadius: '8px', height: '300px', background: '#f0f0f0' }}>
           <EditableImage path={`paintings.${idx}.image`} src={painting.image} />
         </div>
@@ -149,7 +148,7 @@ export default function CraigGrammerPortfolio() {
     const price = siteData.printSizes.find((s) => s.size === size)?.price || 35;
 
     return (
-      <div style={{ border: '1px solid #D4B5A6', padding: '1.5rem', borderRadius: '8px', background: 'white', animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both` }}>
+      <div style={{ border: '1px solid #D4B5A6', padding: '1.5rem', borderRadius: '8px', background: 'white' }}>
         <div style={{ marginBottom: '1rem', height: '250px', overflow: 'hidden', borderRadius: '8px', background: '#f0f0f0' }}>
           <EditableImage path={`paintings.${idx}.image`} src={painting.image} />
         </div>
@@ -174,25 +173,6 @@ export default function CraigGrammerPortfolio() {
 
   const HomePage = () => (
     <div>
-      <style>{`
-        @keyframes heroPaintingFade {
-          0% { opacity: 0; filter: blur(20px); }
-          25% { opacity: 1; filter: blur(0px); }
-          75% { opacity: 1; filter: blur(0px); }
-          100% { opacity: 0; filter: blur(20px); }
-        }
-        @keyframes nameReveal {
-          0% { opacity: 0; transform: translateY(30px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(40px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .hero-painting { animation: heroPaintingFade 7s ease-in-out forwards; }
-        .hero-name { animation: nameReveal 0.8s ease-out 6.5s both; }
-      `}</style>
-
       {/* Hero */}
       <div style={{
         position: 'relative',
@@ -203,28 +183,31 @@ export default function CraigGrammerPortfolio() {
         background: '#F5F0EB',
         overflow: 'hidden'
       }}>
-        {/* Hero Painting - Fades in and out */}
-        <div className="hero-painting" style={{
+        {/* Hero Painting with Animation */}
+        <div style={{
           position: 'absolute',
           inset: 0,
           backgroundImage: `url('${siteData.heroPainting}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
+          opacity: 0,
+          animation: 'heroPaintingAnimation 7s ease-in-out forwards'
         }} />
 
         {/* Overlay */}
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(135deg, rgba(245,240,235,0.88), rgba(239,212,160,0.88))'
+          background: 'linear-gradient(135deg, rgba(245,240,235,0.92), rgba(239,212,160,0.92))'
         }} />
 
         {/* Name appears after painting fades */}
-        <div className="hero-name" style={{
+        <div style={{
           position: 'relative',
           zIndex: 10,
-          textAlign: 'center'
+          textAlign: 'center',
+          opacity: 0,
+          animation: 'nameAppearAnimation 0.8s ease-out 6.5s forwards'
         }}>
           <h1 style={{ fontSize: '72px', fontWeight: 500, color: '#2A4463', margin: '0.5rem 0', fontFamily: 'Playfair Display, serif', letterSpacing: '-1px' }}>
             <EditableText path="artistName">{siteData.artistName}</EditableText>
@@ -261,14 +244,28 @@ export default function CraigGrammerPortfolio() {
             padding: '1rem',
             borderRadius: '8px',
             zIndex: 20,
-            fontSize: '12px'
+            fontSize: '12px',
+            textAlign: 'center'
           }}>
-            <label style={{ cursor: 'pointer', display: 'block', textAlign: 'center' }}>
+            <label style={{ cursor: 'pointer', display: 'block' }}>
               📸 Click to replace hero painting
               <input type="file" accept="image/*" onChange={(e) => e.target.files[0] && handleImageUpload('heroPainting', e.target.files[0])} style={{ display: 'none' }} />
             </label>
           </div>
         )}
+
+        <style>{`
+          @keyframes heroPaintingAnimation {
+            0% { opacity: 0; filter: blur(20px); }
+            20% { opacity: 1; filter: blur(0px); }
+            80% { opacity: 1; filter: blur(0px); }
+            100% { opacity: 0; filter: blur(20px); }
+          }
+          @keyframes nameAppearAnimation {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        `}</style>
       </div>
 
       {/* Featured */}
