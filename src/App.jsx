@@ -15,7 +15,7 @@ export default function CraigGrammerPortfolio() {
       bio: 'Craig Grammer discovered his passion for painting in retirement in Porto, Portugal. His bold, vibrant paintings capture the soul of Portugal from colorful architecture to carnival traditions.',
       email: 'craiggrammar.art@gmail.com',
       instagram: 'https://instagram.com/craiggrammar',
-      heroPainting: 'https://images.unsplash.com/photo-1561214115-6d2f1b0609fa?w=1200&h=800&fit=crop',
+      heroPainting: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABQAFADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWm5ybnJ2eoqOkpaanqKmqsrO0tba2uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlbaWmJmaoqOkpaanqKmqsrO0tba2uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2Q==',
       paintings: [
         { id: 1, title: 'Lisbon Layers', medium: 'Oil on canvas', year: 2024, price: 145, image: 'https://images.unsplash.com/photo-1561214115-6d2f1b0609fa?w=500&h=600&fit=crop' },
         { id: 2, title: 'Entrudo Dreams', medium: 'Acrylic on canvas', year: 2024, price: 125, image: 'https://images.unsplash.com/photo-1549887534-7d4d5b3e0c47?w=500&h=600&fit=crop' },
@@ -173,6 +173,19 @@ export default function CraigGrammerPortfolio() {
 
   const HomePage = () => (
     <div>
+      <style>{`
+        @keyframes heroPaintingAnimation {
+          0% { opacity: 0; filter: blur(20px); }
+          20% { opacity: 1; filter: blur(0px); }
+          80% { opacity: 1; filter: blur(0px); }
+          100% { opacity: 0; filter: blur(20px); }
+        }
+        @keyframes nameAppearAnimation {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+
       {/* Hero */}
       <div style={{
         position: 'relative',
@@ -190,6 +203,7 @@ export default function CraigGrammerPortfolio() {
           backgroundImage: `url('${siteData.heroPainting}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
           opacity: 0,
           animation: 'heroPaintingAnimation 7s ease-in-out forwards'
         }} />
@@ -253,19 +267,6 @@ export default function CraigGrammerPortfolio() {
             </label>
           </div>
         )}
-
-        <style>{`
-          @keyframes heroPaintingAnimation {
-            0% { opacity: 0; filter: blur(20px); }
-            20% { opacity: 1; filter: blur(0px); }
-            80% { opacity: 1; filter: blur(0px); }
-            100% { opacity: 0; filter: blur(20px); }
-          }
-          @keyframes nameAppearAnimation {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-        `}</style>
       </div>
 
       {/* Featured */}
