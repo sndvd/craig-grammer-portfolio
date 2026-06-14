@@ -1,15 +1,6 @@
 services:
   - type: web
-    name: craig-grammar-portfolio
-    env: node
-    plan: free
+    name: craig-grammer-portfolio
+    env: static
     buildCommand: npm install && npm run build
-    startCommand: npm run preview
-    staticSite: true
-    buildDir: dist
-    routes:
-      - path: /*
-        methods:
-          - GET
-        handler: static
-        src: dist/index.html
+    staticPublishPath: ./dist
